@@ -91,25 +91,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <title>Memento Vitae - Admin Create Staff</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div class="card">
-    <h1>Memento Vitae</h1>
-    <h2>Admin: Create Barangay Staff</h2>
+<body class="app-dashboard-page">
+  <header class="public-header">
+    <a class="public-brand" href="index.php" aria-label="Memento Vitae home">
+      <img src="assets/logo.png" alt="Memento Vitae">
+    </a>
 
-    <?php if ($message != "") { ?>
-      <div class="alert alert-<?php echo $message_type; ?>"><?php echo htmlspecialchars($message); ?></div>
-    <?php } ?>
+    <nav class="public-nav" aria-label="Primary">
+      <a href="index.php">Home</a>
+      <a href="articles.php">Articles</a>
+      <a href="requirements.php">Requirements</a>
+      <a href="contact.php">Contact Us</a>
+    </nav>
 
-    <form method="POST">
-      <input type="text" name="fullname" placeholder="Staff Full Name" value="<?php echo e($form["fullname"]); ?>" required>
-      <input type="email" name="email" placeholder="Staff Email" value="<?php echo e($form["email"]); ?>" required>
-      <input type="password" name="password" placeholder="Staff Password" required>
-      <div class="note">New staff accounts are created as <b><?php echo e($staff_role["role_name"]); ?></b>.</div>
-      <div class="note">If the email already belongs to a user account, it will be promoted to staff.</div>
-      <button type="submit">Create Staff</button>
-    </form>
+    <a class="public-login" href="logout.php">Logout</a>
+  </header>
 
-    <a class="link" href="dashboard.php">Back to Dashboard</a>
-  </div>
+  <main class="dashboard-main">
+    <div class="card dashboard-card add-record-card admin-staff-card">
+      <img class="dashboard-logo" src="assets/logo.png" alt="Memento Vitae">
+      <h2 class="dashboard-subtitle">Admin: Create Barangay Staff</h2>
+
+      <?php if ($message != "") { ?>
+        <div class="alert alert-<?php echo $message_type; ?>"><?php echo htmlspecialchars($message); ?></div>
+      <?php } ?>
+
+      <form method="POST" class="add-record-form">
+        <input type="text" name="fullname" placeholder="Staff Full Name" value="<?php echo e($form["fullname"]); ?>" required>
+        <input type="email" name="email" placeholder="Staff Email" value="<?php echo e($form["email"]); ?>" required>
+        <input type="password" name="password" placeholder="Staff Password" required>
+        <div class="note">New staff accounts are created as <b><?php echo e($staff_role["role_name"]); ?></b>.</div>
+        <div class="note">If the email already belongs to a user account, it will be promoted to staff.</div>
+        <button type="submit">Create Staff</button>
+      </form>
+
+      <div class="dashboard-logout">
+        <a class="smallbtn" href="dashboard.php">Back to Dashboard</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="public-footer">@MementoVitae - All rights reserved 2026</footer>
 </body>
 </html>

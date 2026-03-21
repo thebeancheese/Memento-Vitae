@@ -137,70 +137,89 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <title>Memento Vitae - Add Record</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div class="card" style="max-width:720px; text-align:left;">
-    <h1 style="text-align:center;">Memento Vitae</h1>
-    <h2 style="text-align:center;">Add Death Record</h2>
+<body class="app-dashboard-page">
+  <header class="public-header">
+    <a class="public-brand" href="index.php" aria-label="Memento Vitae home">
+      <img src="assets/logo.png" alt="Memento Vitae">
+    </a>
 
-    <?php if ($message != "") { ?>
-      <div class="alert alert-<?php echo $message_type; ?>"><?php echo e($message); ?></div>
-    <?php } ?>
+    <nav class="public-nav" aria-label="Primary">
+      <a href="index.php">Home</a>
+      <a href="articles.php">Articles</a>
+      <a href="requirements.php">Requirements</a>
+      <a href="contact.php">Contact Us</a>
+    </nav>
 
-    <form method="POST" onsubmit="return confirm('Are you sure you want to save this record?');">
+    <a class="public-login" href="logout.php">Logout</a>
+  </header>
 
-      <label class="note">Applicant (User)</label>
-      <select name="applicant_user_id" required>
-        <option value="">Select User...</option>
-        <?php foreach ($user_list as $u) { ?>
-          <option value="<?php echo $u['user_id']; ?>" <?php echo (int)$form["applicant_user_id"] === (int)$u["user_id"] ? "selected" : ""; ?>>
-            <?php echo e($u['full_name'] . " (" . $u['email'] . ")"); ?>
-          </option>
-        <?php } ?>
-      </select>
+  <main class="dashboard-main">
+    <div class="card dashboard-card add-record-card">
+      <img class="dashboard-logo" src="assets/logo.png" alt="Memento Vitae">
+      <h2 class="dashboard-subtitle">Add Death Record</h2>
 
-      <input type="text" name="deceased_name" placeholder="Deceased Name" value="<?php echo e($form["deceased_name"]); ?>" required>
-      <input type="date" name="date_of_death" value="<?php echo e($form["date_of_death"]); ?>" required>
-      <input type="text" name="place_of_death" placeholder="Place of Death" value="<?php echo e($form["place_of_death"]); ?>" required>
-      <input type="text" name="cause_of_death" placeholder="Cause of Death" value="<?php echo e($form["cause_of_death"]); ?>" required>
-      <input type="text" name="informant_name" placeholder="Informant Name" value="<?php echo e($form["informant_name"]); ?>" required>
-      <input type="text" name="relationship" placeholder="Relationship" value="<?php echo e($form["relationship"]); ?>" required>
-
-      <?php if (!empty($duplicate_records)) { ?>
-        <label class="checkline">
-          <input type="checkbox" name="confirm_duplicate" value="1">
-          I reviewed the duplicate warning and still want to save this record.
-        </label>
+      <?php if ($message != "") { ?>
+        <div class="alert alert-<?php echo $message_type; ?>"><?php echo e($message); ?></div>
       <?php } ?>
 
-      <button type="submit">Save Record</button>
-    </form>
+      <form method="POST" class="add-record-form" onsubmit="return confirm('Are you sure you want to save this record?');">
 
-    <?php if (!empty($duplicate_records)) { ?>
-      <div class="panel" style="margin-top:14px;">
-        <h3>Possible Duplicate Matches</h3>
-        <table class="data-table compact-table">
-          <tr>
-            <th>ID</th>
-            <th>Deceased Name</th>
-            <th>Date of Death</th>
-            <th>Status</th>
-          </tr>
-          <?php foreach ($duplicate_records as $duplicate) { ?>
-            <tr>
-              <td><?php echo (int)$duplicate["record_id"]; ?></td>
-              <td><?php echo e($duplicate["deceased_name"]); ?></td>
-              <td><?php echo e($duplicate["date_of_death"]); ?></td>
-              <td><?php echo e($duplicate["status"]); ?></td>
-            </tr>
+        <label class="note add-record-label">Applicant (User)</label>
+        <select name="applicant_user_id" required>
+          <option value="">Select User...</option>
+          <?php foreach ($user_list as $u) { ?>
+            <option value="<?php echo $u['user_id']; ?>" <?php echo (int)$form["applicant_user_id"] === (int)$u["user_id"] ? "selected" : ""; ?>>
+              <?php echo e($u['full_name'] . " (" . $u['email'] . ")"); ?>
+            </option>
           <?php } ?>
-        </table>
-      </div>
-    <?php } ?>
+        </select>
 
-    <div style="text-align:center; margin-top:12px;">
-      <a class="smallbtn" href="dashboard.php">Back</a>
-      <a class="smallbtn" href="death_records_list.php" style="margin-left:8px;">View Records</a>
+        <input type="text" name="deceased_name" placeholder="Deceased Name" value="<?php echo e($form["deceased_name"]); ?>" required>
+        <input type="date" name="date_of_death" value="<?php echo e($form["date_of_death"]); ?>" required>
+        <input type="text" name="place_of_death" placeholder="Place of Death" value="<?php echo e($form["place_of_death"]); ?>" required>
+        <input type="text" name="cause_of_death" placeholder="Cause of Death" value="<?php echo e($form["cause_of_death"]); ?>" required>
+        <input type="text" name="informant_name" placeholder="Informant Name" value="<?php echo e($form["informant_name"]); ?>" required>
+        <input type="text" name="relationship" placeholder="Relationship" value="<?php echo e($form["relationship"]); ?>" required>
+
+        <?php if (!empty($duplicate_records)) { ?>
+          <label class="checkline">
+            <input type="checkbox" name="confirm_duplicate" value="1">
+            I reviewed the duplicate warning and still want to save this record.
+          </label>
+        <?php } ?>
+
+        <button type="submit">Save Record</button>
+      </form>
+
+      <?php if (!empty($duplicate_records)) { ?>
+        <div class="panel add-record-panel">
+          <h3>Possible Duplicate Matches</h3>
+          <table class="data-table compact-table">
+            <tr>
+              <th>ID</th>
+              <th>Deceased Name</th>
+              <th>Date of Death</th>
+              <th>Status</th>
+            </tr>
+            <?php foreach ($duplicate_records as $duplicate) { ?>
+              <tr>
+                <td><?php echo (int)$duplicate["record_id"]; ?></td>
+                <td><?php echo e($duplicate["deceased_name"]); ?></td>
+                <td><?php echo e($duplicate["date_of_death"]); ?></td>
+                <td><?php echo e($duplicate["status"]); ?></td>
+              </tr>
+            <?php } ?>
+          </table>
+        </div>
+      <?php } ?>
+
+      <div class="dashboard-logout">
+        <a class="smallbtn" href="dashboard.php">Back</a>
+        <a class="smallbtn" href="death_records_list.php" style="margin-left:8px;">View Records</a>
+      </div>
     </div>
-  </div>
+  </main>
+
+  <footer class="public-footer">@MementoVitae - All rights reserved 2026</footer>
 </body>
 </html>

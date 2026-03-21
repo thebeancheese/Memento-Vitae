@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <title>Memento Vitae - Archive Record</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="app-content-page">
 
 <div class="card" style="max-width:720px; text-align:left;">
     <h1 style="text-align:center;">Memento Vitae</h1>
@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <b>Created By:</b> <?php echo htmlspecialchars($record["creator_name"]); ?><br>
   </div>
 
-  <p style="color:#ff6b6b; margin-top:14px;">
+  <p class="warning-copy">
     This will remove the record from the active workflow, but an admin can restore it later.
   </p>
 

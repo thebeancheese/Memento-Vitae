@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <title>Memento Vitae - Edit Record</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="app-content-page">
 
 <div class="card" style="max-width:760px; text-align:left;">
     <h1 style="text-align:center;">Memento Vitae</h1>

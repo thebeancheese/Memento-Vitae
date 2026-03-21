@@ -1,0 +1,50 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mementovitae_app
+    ports:
+      - "8080:80"
+    environment:
+      APP_URL: ${APP_URL:-http://localhost:8080}
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-mementovitae}
+      DB_USER: ${DB_USER:-mementovitae_user}
+      DB_PASSWORD: ${DB_PASSWORD:-mementovitae_password}
+      MAIL_DELIVERY_MODE: ${MAIL_DELIVERY_MODE:-smtp}
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM_EMAIL: ${MAIL_FROM_EMAIL:-${MAIL_USERNAME}}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-Memento Vitae}
+      MAIL_ENCRYPTION: ${MAIL_ENCRYPTION:-tls}
+      MAIL_ALLOW_INSECURE: ${MAIL_ALLOW_INSECURE:-false}
+      LCR_REQUEST_EMAIL: ${LCR_REQUEST_EMAIL:-lcrtestingdweb@gmail.com}
+      LCR_REQUEST_NAME: ${LCR_REQUEST_NAME:-Local Civil Registry}
+      CONTACT_FORM_RECIPIENT_EMAIL: ${CONTACT_FORM_RECIPIENT_EMAIL:-${MAIL_USERNAME}}
+      CONTACT_FORM_RECIPIENT_NAME: ${CONTACT_FORM_RECIPIENT_NAME:-Memento Vitae}
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:11.4
+    container_name: mementovitae_db
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-mementovitae}
+      MARIADB_USER: ${DB_USER:-mementovitae_user}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-mementovitae_password}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mementovitae_db_data:/var/lib/mysql
+      - ./mementovitae.sql:/docker-entrypoint-initdb.d/01-mementovitae.sql:ro
+
+volumes:
+  mementovitae_db_data:

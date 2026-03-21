@@ -54,77 +54,96 @@ mysqli_stmt_close($stats_stmt);
   <title>Memento Vitae - Dashboard</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div class="card" style="max-width:960px; text-align:left;">
-    <h1 style="text-align:center;">Memento Vitae</h1>
-    <h2 style="text-align:center;">Dashboard</h2>
+<body class="app-dashboard-page">
+  <header class="public-header">
+    <a class="public-brand" href="index.php" aria-label="Memento Vitae home">
+      <img src="assets/logo.png" alt="Memento Vitae">
+    </a>
 
-    <p class="note" style="text-align:center;">
-      Welcome, <b><?php echo e($_SESSION["full_name"]); ?></b> |
-      Role: <b><?php echo e($role_name); ?></b><?php if (isUserRole($role_id)) { ?> |
-      Unread Notifications: <b><?php echo $notification_count; ?></b><?php } ?>
-    </p>
+    <nav class="public-nav" aria-label="Primary">
+      <a href="index.php">Home</a>
+      <a href="articles.php">Articles</a>
+      <a href="requirements.php">Requirements</a>
+      <a href="contact.php">Contact Us</a>
+    </nav>
 
-    <div class="stat-grid">
-      <div class="stat-card">
-        <div class="label">Total Records</div>
-        <div class="value"><?php echo (int)$stats["total_records"]; ?></div>
+    <a class="public-login" href="logout.php">Logout</a>
+  </header>
+
+  <main class="dashboard-main">
+    <div class="card dashboard-card">
+      <img class="dashboard-logo" src="assets/logo.png" alt="Memento Vitae">
+      <h2 class="dashboard-subtitle">Dashboard</h2>
+
+      <p class="note dashboard-note">
+        Welcome, <b><?php echo e($_SESSION["full_name"]); ?></b> |
+        Role: <b><?php echo e($role_name); ?></b><?php if (isUserRole($role_id)) { ?> |
+        Unread Notifications: <b><?php echo $notification_count; ?></b><?php } ?>
+      </p>
+
+      <div class="stat-grid dashboard-stat-grid">
+        <div class="stat-card">
+          <div class="label">Total Records</div>
+          <div class="value"><?php echo (int)$stats["total_records"]; ?></div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Pending</div>
+          <div class="value status-pending"><?php echo (int)$stats["pending_total"]; ?></div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Approved</div>
+          <div class="value status-approved"><?php echo (int)$stats["approved_total"]; ?></div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Rejected</div>
+          <div class="value status-rejected"><?php echo (int)$stats["rejected_total"]; ?></div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="label">Pending</div>
-        <div class="value status-pending"><?php echo (int)$stats["pending_total"]; ?></div>
+
+      <div class="grid dashboard-grid">
+        <?php if (isAdminRole($role_id)) { ?>
+          <div class="tile">
+            <h3>Death Records</h3>
+            <p>View all records, apply filters, export reports, and manage submissions.</p>
+            <a class="smallbtn" href="death_records_list.php">Open Records List</a>
+            <a class="smallbtn" href="death_records_add.php" style="margin-left:8px;">Add Record</a>
+          </div>
+
+          <div class="tile">
+            <h3>Admin Tools</h3>
+            <p>Create Barangay staff accounts securely.</p>
+            <a class="smallbtn" href="admin_create_account.php">Create Staff Account</a>
+          </div>
+
+        <?php } elseif (isStaffRole($role_id)) { ?>
+          <div class="tile">
+            <h3>Workflow Board</h3>
+            <p>Create records, review all records, update statuses, and check audit history in one place.</p>
+            <a class="smallbtn" href="death_records_add.php">Add Record</a>
+            <a class="smallbtn" href="death_records_list.php" style="margin-left:8px;">Open Workflow Board</a>
+          </div>
+
+        <?php } else { ?>
+          <div class="tile">
+            <h3>My Application Status</h3>
+            <p>View your submitted records, status timeline, and request a death certificate once a record is approved.</p>
+            <a class="smallbtn" href="user_status.php">View My Status</a>
+          </div>
+
+          <div class="tile">
+            <h3>Notifications</h3>
+            <p>See approval updates, review notes, and recent record activity.</p>
+            <a class="smallbtn" href="notifications.php">Open Notifications</a>
+          </div>
+        <?php } ?>
       </div>
-      <div class="stat-card">
-        <div class="label">Approved</div>
-        <div class="value status-approved"><?php echo (int)$stats["approved_total"]; ?></div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Rejected</div>
-        <div class="value status-rejected"><?php echo (int)$stats["rejected_total"]; ?></div>
+
+      <div class="dashboard-logout">
+        <a class="smallbtn" href="logout.php">Logout</a>
       </div>
     </div>
+  </main>
 
-    <div class="grid">
-      <?php if (isAdminRole($role_id)) { ?>
-        <div class="tile">
-          <h3>Death Records</h3>
-          <p>View all records, apply filters, export reports, and manage submissions.</p>
-          <a class="smallbtn" href="death_records_list.php">Open Records List</a>
-          <a class="smallbtn" href="death_records_add.php" style="margin-left:8px;">Add Record</a>
-        </div>
-
-        <div class="tile">
-          <h3>Admin Tools</h3>
-          <p>Create Barangay staff accounts securely.</p>
-          <a class="smallbtn" href="admin_create_account.php">Create Staff Account</a>
-        </div>
-
-      <?php } elseif (isStaffRole($role_id)) { ?>
-        <div class="tile">
-          <h3>Workflow Board</h3>
-          <p>Create records, review all records, update statuses, and check audit history in one place.</p>
-          <a class="smallbtn" href="death_records_add.php">Add Record</a>
-          <a class="smallbtn" href="death_records_list.php" style="margin-left:8px;">Open Workflow Board</a>
-        </div>
-
-      <?php } else { ?>
-        <div class="tile">
-          <h3>My Application Status</h3>
-          <p>View your submitted records, status timeline, and request a death certificate once a record is approved.</p>
-          <a class="smallbtn" href="user_status.php">View My Status</a>
-        </div>
-
-        <div class="tile">
-          <h3>Notifications</h3>
-          <p>See approval updates, review notes, and recent record activity.</p>
-          <a class="smallbtn" href="notifications.php">Open Notifications</a>
-        </div>
-      <?php } ?>
-    </div>
-
-    <div style="margin-top:16px; text-align:center;">
-      <a class="smallbtn" href="logout.php">Logout</a>
-    </div>
-  </div>
+  <footer class="public-footer">@MementoVitae - All rights reserved 2026</footer>
 </body>
 </html>

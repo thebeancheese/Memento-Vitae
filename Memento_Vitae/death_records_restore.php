@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <title>Memento Vitae - Restore Record</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="app-content-page">
 
 <div class="card" style="max-width:720px; text-align:left;">
   <h1 style="text-align:center;">Memento Vitae</h1>
@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <b>Archived By:</b> <?php echo e($record["archived_by_name"] ?: "Unknown"); ?><br>
   </div>
 
-  <p style="color:#98e99b; margin-top:14px;">
+  <p class="success-copy">
     Restoring this record will return it to the active workflow board and make it visible again to the applicant.
   </p>
 

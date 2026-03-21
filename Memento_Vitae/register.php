@@ -12,16 +12,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fullname = trim($_POST["fullname"]);
     $email    = trim($_POST["email"]);
     $password = $_POST["password"];
+    $confirm_password = $_POST["confirm_password"] ?? "";
     $form["fullname"] = $fullname;
     $form["email"] = $email;
 
     // Public registration always USER
     $role_id = ROLE_USER;
 
-    if ($fullname == "" || $email == "" || $password == "") {
+    if ($fullname == "" || $email == "" || $password == "" || $confirm_password == "") {
         $message = "Please fill out all fields.";
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message = "Please enter a valid email address.";
+    } else if ($password !== $confirm_password) {
+        $message = "Passwords do not match.";
     } else if (strlen($password) < 8) {
         $message = "Password must be at least 8 characters long.";
     } else {
@@ -78,25 +81,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <title>Memento Vitae - Register</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div class="card">
-    <h1>Memento Vitae</h1>
-    <h2>Create Account (User)</h2>
+<body class="public-site auth-page">
+  <header class="public-header">
+    <a class="public-brand" href="index.php" aria-label="Memento Vitae home">
+      <img src="assets/logo.png" alt="Memento Vitae">
+    </a>
 
-    <div class="note">This form creates a <b>User</b> account only.</div>
+    <nav class="public-nav" aria-label="Primary">
+      <a href="index.php">Home</a>
+      <a href="articles.php">Articles</a>
+      <a href="requirements.php">Requirements</a>
+      <a href="contact.php">Contact Us</a>
+    </nav>
 
-    <?php if ($message != "") { ?>
-      <div class="alert alert-<?php echo $message_type; ?>"><?php echo htmlspecialchars($message); ?></div>
-    <?php } ?>
+    <a class="public-login active" href="login.php">Login</a>
+  </header>
 
-    <form method="POST">
-      <input type="text" name="fullname" placeholder="Full Name" value="<?php echo e($form["fullname"]); ?>" required>
-      <input type="email" name="email" placeholder="Email" value="<?php echo e($form["email"]); ?>" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <button type="submit">Register</button>
-    </form>
+  <main class="auth-main">
+    <div class="card auth-card">
+      <img class="auth-logo" src="assets/logo.png" alt="Memento Vitae">
+      <h2 class="auth-subtitle">Create Account (User)</h2>
 
-    <a class="link" href="login.php">Already have an account? Login</a>
-  </div>
+      <div class="note">This form creates a <b>User</b> account only.</div>
+
+      <?php if ($message != "") { ?>
+        <div class="alert alert-<?php echo $message_type; ?>"><?php echo htmlspecialchars($message); ?></div>
+      <?php } ?>
+
+      <form method="POST" class="auth-form">
+        <input type="text" name="fullname" placeholder="Full Name" value="<?php echo e($form["fullname"]); ?>" required>
+        <input type="email" name="email" placeholder="Email" value="<?php echo e($form["email"]); ?>" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirm_password" placeholder="Re-type Password" required>
+        <button type="submit">Register</button>
+      </form>
+
+      <div class="auth-links">
+        <a class="link primary-auth-link" href="login.php">Already have an account? Login</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="public-footer">@MementoVitae - All rights reserved 2026</footer>
 </body>
 </html>

@@ -45,21 +45,42 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <title>Memento Vitae - Forgot Password</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div class="card">
-    <h1>Memento Vitae</h1>
-    <h2>Forgot Password</h2>
+<body class="public-site auth-page">
+  <header class="public-header">
+    <a class="public-brand" href="index.php" aria-label="Memento Vitae home">
+      <img src="assets/logo.png" alt="Memento Vitae">
+    </a>
 
-    <?php if ($message !== "") { ?>
-      <div class="alert alert-<?php echo e($message_type); ?>"><?php echo e($message); ?></div>
-    <?php } ?>
+    <nav class="public-nav" aria-label="Primary">
+      <a href="index.php">Home</a>
+      <a href="articles.php">Articles</a>
+      <a href="requirements.php">Requirements</a>
+      <a href="contact.php">Contact Us</a>
+    </nav>
 
-    <form method="POST">
-      <input type="email" name="email" placeholder="Registered Email" value="<?php echo e($email); ?>" required>
-      <button type="submit">Send Reset Link</button>
-    </form>
+    <a class="public-login active" href="login.php">Login</a>
+  </header>
 
-    <a class="link" href="login.php">Back to Login</a>
-  </div>
+  <main class="auth-main">
+    <div class="card auth-card">
+      <img class="auth-logo" src="assets/logo.png" alt="Memento Vitae">
+      <h2 class="auth-subtitle">Forgot Password</h2>
+
+      <?php if ($message !== "") { ?>
+        <div class="alert alert-<?php echo e($message_type); ?>"><?php echo e($message); ?></div>
+      <?php } ?>
+
+      <form method="POST" class="auth-form">
+        <input type="email" name="email" placeholder="Registered Email" value="<?php echo e($email); ?>" required>
+        <button type="submit">Send Reset Link</button>
+      </form>
+
+      <div class="auth-links">
+        <a class="link primary-auth-link" href="login.php">Back to Login</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="public-footer">@MementoVitae - All rights reserved 2026</footer>
 </body>
 </html>

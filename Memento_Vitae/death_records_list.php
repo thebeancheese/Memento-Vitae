@@ -184,11 +184,26 @@ $export_url = "death_records_list.php?" . http_build_query($export_query);
   <title>Memento Vitae - Records List</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="app-dashboard-page">
+
+<header class="public-header">
+  <a class="public-brand" href="index.php" aria-label="Memento Vitae home">
+    <img src="assets/logo.png" alt="Memento Vitae">
+  </a>
+
+  <nav class="public-nav" aria-label="Primary">
+    <a href="index.php">Home</a>
+    <a href="articles.php">Articles</a>
+    <a href="requirements.php">Requirements</a>
+    <a href="contact.php">Contact Us</a>
+  </nav>
+
+  <a class="public-login" href="logout.php">Logout</a>
+</header>
 
 <div class="page-shell">
-  <div class="card" style="max-width:none; text-align:left;">
-    <h1 style="text-align:center;">Memento Vitae</h1>
+  <div class="card dashboard-card records-list-card" style="max-width:none; text-align:left;">
+    <img class="dashboard-logo" src="assets/logo.png" alt="Memento Vitae">
     <h2 style="text-align:center;">Death Records List</h2>
 
     <?php if ($added_msg !== "") { ?>
@@ -239,7 +254,7 @@ $export_url = "death_records_list.php?" . http_build_query($export_query);
       </div>
     </div>
 
-    <div class="panel" style="margin-top:18px;">
+    <div class="panel records-filter-panel" style="margin-top:18px;">
       <h3><?php echo $archived_mode ? "Archived Records Filters" : "Advanced Filters & Report Controls"; ?></h3>
       <form method="GET">
         <?php if ($archived_mode) { ?>
@@ -374,6 +389,8 @@ $export_url = "death_records_list.php?" . http_build_query($export_query);
 
   </div>
 </div>
+
+<footer class="public-footer">@MementoVitae - All rights reserved 2026</footer>
 
 </body>
 </html>

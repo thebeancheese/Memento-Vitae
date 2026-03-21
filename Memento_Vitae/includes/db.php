@@ -7,7 +7,17 @@ require_once __DIR__ . '/PHPMailer/src/Exception.php';
 require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
 require_once __DIR__ . '/PHPMailer/src/SMTP.php';
 
-$conn = mysqli_connect("localhost", "root", "", "mementovitae");
+$db_host = getenv("DB_HOST") ?: "localhost";
+$db_name = getenv("DB_NAME") ?: "mementovitae";
+$db_user = getenv("DB_USER") ?: "root";
+$db_pass = getenv("DB_PASSWORD");
+if ($db_pass === false) {
+    $db_pass = "";
+}
+$db_port = getenv("DB_PORT");
+$db_port = $db_port !== false && $db_port !== "" ? (int)$db_port : 3306;
+
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 if (!$conn) {
     die("DB connection failed: " . mysqli_connect_error());
 }

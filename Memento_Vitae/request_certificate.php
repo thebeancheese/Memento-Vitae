@@ -170,7 +170,7 @@ mysqli_stmt_close($requests_stmt);
   <title>Memento Vitae - Request Certificate</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="app-content-page">
   <div class="page-shell">
     <div class="card" style="max-width:920px; text-align:left;">
       <h1 style="text-align:center;">Memento Vitae</h1>

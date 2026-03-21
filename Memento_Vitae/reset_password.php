@@ -41,28 +41,51 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <title>Memento Vitae - Reset Password</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div class="card">
-    <h1>Memento Vitae</h1>
-    <h2>Reset Password</h2>
+<body class="public-site auth-page">
+  <header class="public-header">
+    <a class="public-brand" href="index.php" aria-label="Memento Vitae home">
+      <img src="assets/logo.png" alt="Memento Vitae">
+    </a>
 
-    <?php if ($message !== "") { ?>
-      <div class="alert alert-<?php echo e($message_type); ?>"><?php echo e($message); ?></div>
-    <?php } ?>
+    <nav class="public-nav" aria-label="Primary">
+      <a href="index.php">Home</a>
+      <a href="articles.php">Articles</a>
+      <a href="requirements.php">Requirements</a>
+      <a href="contact.php">Contact Us</a>
+    </nav>
 
-    <?php if ($token_row) { ?>
-      <form method="POST">
-        <input type="hidden" name="token" value="<?php echo e($token); ?>">
-        <input type="password" name="password" placeholder="New Password" required>
-        <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
-        <button type="submit">Update Password</button>
-      </form>
-    <?php } else { ?>
-      <div class="alert alert-error">This reset link is invalid or expired.</div>
-    <?php } ?>
+    <a class="public-login active" href="login.php">Login</a>
+  </header>
 
-    <a class="link" href="login.php">Back to Login</a>
-    <a class="link" href="forgot_password.php">Request Another Reset Link</a>
-  </div>
+  <main class="auth-main">
+    <div class="card auth-card">
+      <img class="auth-logo" src="assets/logo.png" alt="Memento Vitae">
+      <h2 class="auth-subtitle">Reset Password</h2>
+
+      <?php if ($message !== "") { ?>
+        <div class="alert alert-<?php echo e($message_type); ?>"><?php echo e($message); ?></div>
+      <?php } ?>
+
+      <?php if ($token_row) { ?>
+        <form method="POST" class="auth-form">
+          <input type="hidden" name="token" value="<?php echo e($token); ?>">
+          <input type="password" name="password" placeholder="New Password" required>
+          <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
+          <button type="submit">Update Password</button>
+        </form>
+      <?php } else { ?>
+        <div class="alert alert-error">This reset link is invalid or expired.</div>
+      <?php } ?>
+
+      <div class="auth-links">
+        <a class="link primary-auth-link" href="login.php">Back to Login</a>
+        <div class="auth-links-secondary">
+          <a class="link" href="forgot_password.php">Request Another Reset Link</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="public-footer">@MementoVitae - All rights reserved 2026</footer>
 </body>
 </html>

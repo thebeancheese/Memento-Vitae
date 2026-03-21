@@ -260,7 +260,7 @@ mysqli_stmt_close($documents_stmt);
     .label { color:#bdbdbd; font-size:12px; text-transform:uppercase; letter-spacing:1px; }
   </style>
 </head>
-<body>
+<body class="app-content-page">
 
 <div class="page-shell">
   <div class="card" style="max-width:none; text-align:left;">
@@ -320,7 +320,7 @@ mysqli_stmt_close($documents_stmt);
                 <?php } ?>
               </div>
               <div class="document-actions">
-                <a class="smallbtn" href="document_download.php?id=<?php echo (int)$document["document_id"]; ?>">Open File</a>
+                <a class="smallbtn" href="document_view.php?id=<?php echo (int)$document["document_id"]; ?>">Open File</a>
               </div>
 
               <form method="POST">

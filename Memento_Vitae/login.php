@@ -98,73 +98,92 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://accounts.google.com/gsi/client" async defer></script>
   <?php } ?>
 </head>
-<body>
-  <div class="card">
-    <h1>Memento Vitae</h1>
-    <h2>Login</h2>
+<body class="public-site login-page">
+  <header class="public-header">
+    <a class="public-brand" href="index.php" aria-label="Memento Vitae home">
+      <img src="assets/logo.png" alt="Memento Vitae">
+    </a>
 
-    <?php if ($message != "") { ?>
-      <div class="alert alert-<?php echo $message_type; ?>"><?php echo htmlspecialchars($message); ?></div>
-    <?php } ?>
+    <nav class="public-nav" aria-label="Primary">
+      <a href="index.php">Home</a>
+      <a href="articles.php">Articles</a>
+      <a href="requirements.php">Requirements</a>
+      <a href="contact.php">Contact Us</a>
+    </nav>
 
-    <?php if ($show_resend_link) { ?>
-      <div class="context-action">
-        <a class="link" href="resend_verification.php">Resend Verification Email</a>
-      </div>
-    <?php } ?>
+    <a class="public-login active" href="login.php">Login</a>
+  </header>
 
-    <form method="POST">
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
+  <main class="login-main">
+    <div class="card login-card">
+      <img class="login-logo" src="assets/logo.png" alt="Memento Vitae">
+      <h2 class="login-subtitle">Login</h2>
 
-    <div class="oauth-divider"><span>or</span></div>
+      <?php if ($message != "") { ?>
+        <div class="alert alert-<?php echo $message_type; ?>"><?php echo htmlspecialchars($message); ?></div>
+      <?php } ?>
 
-    <?php if ($google_enabled) { ?>
-      <div id="g_id_onload"
-           data-client_id="<?php echo e(GOOGLE_CLIENT_ID); ?>"
-           data-callback="handleGoogleCredential"
-           data-auto_prompt="false">
-      </div>
-      <div class="google-wrap">
-        <div class="g_id_signin"
-             data-type="standard"
-             data-shape="pill"
-             data-theme="outline"
-             data-text="signin_with"
-             data-size="large"
-             data-logo_alignment="left"
-             data-width="100%">
+      <?php if ($show_resend_link) { ?>
+        <div class="context-action">
+          <a class="link" href="resend_verification.php">Resend Verification Email</a>
         </div>
-      </div>
+      <?php } ?>
 
-      <form method="POST" id="google-login-form" style="display:none;">
-        <input type="hidden" name="google_credential" id="google_credential">
+      <form method="POST" class="login-form">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
       </form>
 
-      <script>
-        function handleGoogleCredential(response) {
-          if (!response || !response.credential) {
-            return;
-          }
-          document.getElementById('google_credential').value = response.credential;
-          document.getElementById('google-login-form').submit();
-        }
-      </script>
-    <?php } else { ?>
-      <div class="alert alert-error" style="margin-top:16px;">
-        Google login is ready in code, but you still need to set your Client ID in
-        <code>includes/oauth_config.php</code>.
-      </div>
-    <?php } ?>
+      <div class="oauth-divider"><span>or</span></div>
 
-    <div class="auth-links">
-      <a class="link primary-auth-link" href="register.php">Create a User Account</a>
-      <div class="auth-links-secondary">
-        <a class="link" href="forgot_password.php">Forgot Password?</a>
+      <?php if ($google_enabled) { ?>
+        <div id="g_id_onload"
+             data-client_id="<?php echo e(GOOGLE_CLIENT_ID); ?>"
+             data-callback="handleGoogleCredential"
+             data-auto_prompt="false">
+        </div>
+        <div class="google-wrap">
+          <div class="g_id_signin"
+               data-type="standard"
+               data-shape="pill"
+               data-theme="outline"
+               data-text="signin_with"
+               data-size="large"
+               data-logo_alignment="left"
+               data-width="100%">
+          </div>
+        </div>
+
+        <form method="POST" id="google-login-form" style="display:none;">
+          <input type="hidden" name="google_credential" id="google_credential">
+        </form>
+
+        <script>
+          function handleGoogleCredential(response) {
+            if (!response || !response.credential) {
+              return;
+            }
+            document.getElementById('google_credential').value = response.credential;
+            document.getElementById('google-login-form').submit();
+          }
+        </script>
+      <?php } else { ?>
+        <div class="alert alert-error" style="margin-top:16px;">
+          Google login is ready in code, but you still need to set your Client ID in
+          <code>includes/oauth_config.php</code>.
+        </div>
+      <?php } ?>
+
+      <div class="auth-links">
+        <a class="link primary-auth-link" href="register.php">Create a User Account</a>
+        <div class="auth-links-secondary">
+          <a class="link" href="forgot_password.php">Forgot Password?</a>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
+
+  <footer class="public-footer">@MementoVitae - All rights reserved 2026</footer>
 </body>
 </html>

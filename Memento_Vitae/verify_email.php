@@ -38,7 +38,7 @@ if ($token === "") {
   <title>Memento Vitae - Verify Email</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="app-content-page">
   <div class="card">
     <h1>Memento Vitae</h1>
     <h2>Email Verification</h2>
