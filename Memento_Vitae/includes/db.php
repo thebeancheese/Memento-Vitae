@@ -379,6 +379,7 @@ if (!function_exists("sendMailMessage")) {
 
             return [true, ""];
         } catch (\Throwable $e) {
+            error_log("Memento Vitae mail error: " . $e->getMessage());
             return [false, $e->getMessage()];
         }
     }
